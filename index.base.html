@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Neuro Pro 2 Settings Uplink | Tech for Psych</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap');
+
+			:root {
+				--bg-dark: #1a1c1e;
+				--brand-gold: #c39b60;
+				--brand-gold-hover: #b08950;
+				--text-main: #f5f5f5;
+				--text-muted: #9ca3af;
+				--input-bg: rgba(255, 255, 255, 0.05);
+				--border-color: rgba(255, 255, 255, 0.1);
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Open Sans', sans-serif;
+				background-color: var(--bg-dark);
+				color: var(--text-main);
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.dashboard {
+				width: 90%;
+				max-width: 600px;
+				padding: 2.5rem 0;
+			}
+
+			.logo-container {
+				margin-bottom: 2rem;
+				background-color: #000;
+				padding: 1.5rem;
+				display: inline-block;
+			}
+
+			.logo-container img {
+				height: 50px;
+				display: block;
+			}
+
+			.header {
+				margin-bottom: 2.5rem;
+				text-align: left;
+			}
+
+			.header .subtitle {
+				color: var(--brand-gold);
+				font-size: 0.75rem;
+				font-weight: 700;
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				margin-bottom: 1rem;
+				display: block;
+			}
+
+			.header h1 {
+				margin: 0;
+				font-family: 'Merriweather', serif;
+				font-size: 2.2rem;
+				font-weight: 700;
+				line-height: 1.2;
+				color: #ffffff;
+				margin-bottom: 1rem;
+			}
+
+			.header p {
+				margin: 0;
+				color: var(--text-muted);
+				font-size: 1rem;
+				line-height: 1.6;
+			}
+
+			.form-group {
+				margin-bottom: 1.5rem;
+			}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-size: 0.85rem;
+				color: var(--brand-gold);
+				font-weight: 600;
+				letter-spacing: 0.5px;
+				text-transform: uppercase;
+			}
+
+			.input-field {
+				width: 100%;
+				padding: 1rem;
+				background: var(--input-bg);
+				border: 1px solid var(--border-color);
+				border-radius: 4px;
+				color: white;
+				font-family: 'Open Sans', sans-serif;
+				font-size: 1rem;
+				box-sizing: border-box;
+				transition: all 0.3s ease;
+			}
+
+			.input-field:focus {
+				outline: none;
+				border-color: var(--brand-gold);
+				background: rgba(255, 255, 255, 0.08);
+			}
+
+			.file-drop-area {
+				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				width: 100%;
+				padding: 2rem;
+				background: var(--input-bg);
+				border: 1px dashed var(--border-color);
+				border-radius: 4px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-sizing: border-box;
+				text-align: center;
+			}
+
+			.file-drop-area:hover, .file-drop-area.dragover {
+				background: rgba(255, 255, 255, 0.08);
+				border-color: var(--brand-gold);
+			}
+
+			.file-drop-area input[type="file"] {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				opacity: 0;
+				cursor: pointer;
+			}
+
+			.file-icon {
+				font-size: 2rem;
+				margin-bottom: 0.5rem;
+				opacity: 0.8;
+				filter: grayscale(100%) sepia(100%) hue-rotate(5deg) saturate(300%) brightness(0.8) contrast(1.2); /* Tinting emoji vaguely gold */
+			}
+
+			.btn-submit {
+				width: auto;
+				min-width: 250px;
+				padding: 1rem 1.5rem;
+				background-color: var(--brand-gold);
+				border: none;
+				border-radius: 6px;
+				color: #111;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 700;
+				font-size: 1rem;
+				cursor: pointer;
+				transition: background-color 0.2s;
+				margin-top: 1rem;
+			}
+
+			.btn-submit:hover:not(:disabled) {
+				background-color: var(--brand-gold-hover);
+			}
+			
+			.btn-submit:disabled {
+				background-color: #374151;
+				color: #9ca3af;
+				cursor: not-allowed;
+			}
+
+			.footer-note {
+				margin-top: 1rem;
+				font-size: 0.85rem;
+				color: var(--text-muted);
+			}
+
+			.divider {
+				height: 1px;
+				background-color: var(--border-color);
+				margin: 2rem 0 1rem 0;
+				width: 100%;
+			}
+
+			.console {
+				margin-top: 1.5rem;
+				background: #111;
+				border-radius: 4px;
+				padding: 1rem;
+				font-family: 'Courier New', Courier, monospace;
+				font-size: 0.85rem;
+				color: var(--brand-gold);
+				height: 130px;
+				overflow-y: auto;
+				border: 1px solid var(--border-color);
+				display: none;
+			}
+
+			.console div {
+				margin-bottom: 0.4rem;
+				line-height: 1.4;
+			}
+			
+			.error {
+				color: #ef4444 !important;
+			}
+		</style>
+		<script type="module">
+			window.VielightDevice = (function() {
+				__NEUROPRO_JS__
+
+				return({ VielightDevice });
+			})();
+
+			window.asleep = function(ms) {
+				return(new Promise(resolve => setTimeout(resolve, ms)));
+			}
+		</script>
+		__DEVICE_HTML__
+	</head>
+	<body>
+		<div class="dashboard">
+			
+			<div class="header">
+				<h1>Neuro Pro 2 Settings Uplink</h1>
+				<p>Sync your customized coach protocol configuration directly to your local Neuro Pro 2 device over your network.</p>
+			</div>
+
+			<div class="form-group">
+				<label for="ipAddress">Local Device IP</label>
+				<input type="text" id="ipAddress" class="input-field" placeholder="e.g. np1.local" value="np1.local">
+			</div>
+
+			<div class="form-group">
+				<label>Coach Protocol Configuration</label>
+				<div class="file-drop-area" id="dropArea">
+					<div class="file-icon">🧠</div>
+					<span id="fileMessage">Drag & drop the setup file here<br>or click to browse (.json, .txt)</span>
+					<input type="file" id="fileInput" accept=".json,.txt,.vnp0">
+			</div>
+		</div>
+
+		<button class="btn-submit" id="uploadBtn" disabled>Sync to Neuro Pro 2</button>
+		<div class="footer-note">Requires active local network connection.</div>
+
+		<div class="divider"></div>
+			<div class="footer-note">Thought is power. New paths, higher potential.</div>
+
+			<div class="console" id="logConsole"></div>
+		</div>
+
+		<script>
+			const fileInput = document.getElementById('fileInput');
+console.log('file input:', fileInput);
+			const fileMessage = document.getElementById('fileMessage');
+			const uploadBtn = document.getElementById('uploadBtn');
+			const dropArea = document.getElementById('dropArea');
+			const logConsole = document.getElementById('logConsole');
+			
+			let selectedFile = null;
+
+			['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+				dropArea.addEventListener(eventName, preventDefaults, false);
+			});
+
+			function preventDefaults (e) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
+			['dragenter', 'dragover'].forEach(eventName => {
+				dropArea.addEventListener(eventName, () => dropArea.classList.add('dragover'), false);
+			});
+
+			['dragleave', 'drop'].forEach(eventName => {
+				dropArea.addEventListener(eventName, () => dropArea.classList.remove('dragover'), false);
+			});
+
+			dropArea.addEventListener('drop', handleDrop, false);
+
+			function handleDrop(e) {
+console.log('File dropped:', e);
+				let dt = e.dataTransfer;
+				let files = dt.files;
+				handleFiles(files);
+			}
+
+function logAllEvents(element) {
+  // Loop through all properties of the HTML object
+  for (const property in element) {
+    // Check if the property is an event handler (e.g., onclick, onmouseover)
+    if (property.startsWith('on')) {
+      const eventName = property.slice(2); // Extract the event name (e.g., 'click')
+
+if (eventName.match(/^(mouse|key)/)) {
+return;
+}
+      
+      element.addEventListener(eventName, (event) => {
+        console.log(`Event Fired: ${eventName}`, event);
+      });
+    }
+  }
+}
+
+logAllEvents(fileInput); // Call the function to log all events for the file input
+
+
+			fileInput.addEventListener('click', function() {
+				this.value = null; // Reset the input so the same file can be selected again
+			});
+			fileInput.addEventListener('change', function(e) {
+console.log('File input changed:', this, e);
+				handleFiles(this.files);
+			});
+
+			function handleFiles(files) {
+console.log('Got files:', files);
+				if(files.length > 0) {
+					selectedFile = files[0];
+					fileMessage.innerHTML = `<span style="color:var(--brand-gold)">${selectedFile.name}</span> ready to sync.`;
+					uploadBtn.disabled = false;
+					uploadBtn.textContent = 'Sync to Neuro Pro 2';
+				}
+			}
+
+			function log(msg, isError = false) {
+				logConsole.style.display = 'block';
+				const line = document.createElement('div');
+				
+				const now = new Date();
+				const timeString = now.toTimeString().split(' ')[0];
+				
+				line.innerHTML = `<span style="color:#6b7280">[${timeString}]</span> ${msg}`;
+				if(isError) {
+					line.className = 'error';
+				}
+				logConsole.appendChild(line);
+				logConsole.scrollTop = logConsole.scrollHeight;
+			}
+
+			uploadBtn.addEventListener('click', async () => {
+				const ip = document.getElementById('ipAddress').value;
+				let result;
+				
+				if (!ip) {
+					log('Error: Device IP Address is required to establish API connection.', true);
+					return;
+				}
+
+				uploadBtn.disabled = true;
+				uploadBtn.textContent = 'Transmitting...';
+				logConsole.innerHTML = '';
+
+				try {
+					log(`Initiating TCP connection to Neuro Pro 2 controller at ${ip}...`);
+
+					/**
+					 * Determine what kind of file we have:
+					 *
+					 * Single file
+					 * Batch file
+					 * Concatented file of Single and Batch ('---' separator)
+					 */
+					const fileDataRaw = await selectedFile.text();
+					let couldBeConcatenated = false;
+					let filesToProcess = [];
+
+					function addFile(fileData) {
+						if (typeof fileData !== 'object' || fileData === null) {
+							throw(new Error('Invalid file format. Expected a JSON object.'));
+						}
+
+						if (!('single' in fileData) || typeof fileData.single !== 'boolean') {
+							throw(new Error('Invalid file format. Missing "single" property.'));
+						}
+
+						if (!('filename' in fileData) || typeof fileData.filename !== 'string') {
+							throw(new Error('Invalid file format. Missing "filename" property.'));
+						}
+
+						let uploadFilename;
+						if (fileData.single) {
+							uploadFilename = `${fileData.filename}.vnp0`;
+						} else {
+							uploadFilename = `${fileData.filename}.vnp4`;
+						}
+
+						filesToProcess.push({
+							filename: uploadFilename,
+							data: fileData
+						});
+					}
+
+					try {
+						couldBeConcatenated = true;
+						const fileData = JSON.parse(fileDataRaw);
+
+						/* If it was valid JSON then it can't be a concatenated file, so we set the flag to false */
+						couldBeConcatenated = false;
+
+						addFile(fileData);
+					} catch {
+						/* Ignore */
+					}
+
+					if (couldBeConcatenated) {
+						if (!fileDataRaw.match(/^---$/m)) {
+							throw(new Error('Invalid file format. Expected a concatenated file with sections separated by "---".'));
+						}
+
+						/* Must be concatenated file. Split by '---' and parse each section */
+						fileDataRaw.split(/^---$/m).forEach((section, index) => {
+							if (section.trim() === '') {
+								return;
+							}
+
+console.log(`Parsing section ${index + 1}:`, section);
+
+							try {
+								const fileData = JSON.parse(section);
+								addFile(fileData);
+							} catch (error) {
+								throw(new Error(`Invalid JSON in section ${index + 1}: ${error.message}`));
+							}
+						});
+					}
+
+					if (filesToProcess.length === 0) {
+						throw(new Error('No valid configuration files found in the uploaded file.'));
+					}
+
+					log('File read successfully. Preparing to send data...');
+
+					const device = getDevice(ip);
+					for (const fileToProcess of filesToProcess) {
+						log(`Sending file: ${fileToProcess.filename}...`);
+						await device.saveFile(fileToProcess.filename, fileToProcess.data);
+					}
+
+					/* Beep to indicate successful transmission */
+					try {
+						await device.runFile('Rest5m.vnp1', { waitForCompletion: false });
+					} catch { /* Ignore */ }
+					await asleep(200);
+					await device.stop();
+
+					result = 'Success !';
+				} catch (error) {
+					result = 'Something went wrong';
+					if (error instanceof Error) {
+						result = error.message;
+					}
+				} finally {
+					log(result);
+					log('Sync process completed.');
+					uploadBtn.disabled = false;
+					uploadBtn.textContent = 'Sync to Neuro Pro 2';
+				}
+			});
+		</script>
+	</body>
+</html>

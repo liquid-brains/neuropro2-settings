@@ -1,0 +1,69 @@
+		<script type="text/javascript">
+			function getDevice(ip) {
+				const fetchViaIframe = async function(url) {
+					const tmpElement = document.createElement('iframe');
+					tmpElement.src = url.toString();
+					tmpElement.style.display = 'none';
+
+					const resultPromise = new Promise(function(resolve) {
+						let resolved = false;
+
+						let timeoutID;
+						const finished = function(/** {@type: 'ok' | 'error' | 'timeout'} */kind) {
+							if (timeoutID) {
+								clearTimeout(timeoutID);
+								timeoutID = undefined;
+							}
+
+							if (resolved) {
+									return;
+							}
+							resolved = true;
+							switch (kind) {
+								case 'ok':
+									resolve({ ok: true, status: 200 });
+									break;
+								case 'error':
+									resolve({ ok: false, status: 500, text: () => Promise.resolve('load error') });
+									break;
+								case 'timeout':
+									resolve({ ok: false, status: 408, text: () => Promise.resolve('timeout') });
+									break;
+								default:
+									resolve({ ok: false, status: 500, text: () => Promise.resolve('unknown error') });
+							}
+						};
+
+						timeoutID = setTimeout(function() {
+							finished('timeout');
+						}, 30000);
+
+						tmpElement.onload = function() {
+							finished('ok');
+						};
+						tmpElement.onerror = function(...args) {
+							finished('error');
+						};
+					});
+
+					document.body.appendChild(tmpElement);
+
+					try {
+						const retval = await resultPromise;
+
+						return(retval);
+					} finally {
+						document.body.removeChild(tmpElement);
+					}
+				};
+
+				const device = new VielightDevice.VielightDevice({
+					ip: ip,
+					logger: console,
+					fetch: fetchViaIframe,
+					fetchCanReturnData: false
+				});
+
+				return(device);
+			}
+		</script>
