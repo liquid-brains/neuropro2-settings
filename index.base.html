@@ -259,7 +259,6 @@
 
 		<script>
 			const fileInput = document.getElementById('fileInput');
-console.log('file input:', fileInput);
 			const fileMessage = document.getElementById('fileMessage');
 			const uploadBtn = document.getElementById('uploadBtn');
 			const dropArea = document.getElementById('dropArea');
@@ -287,43 +286,19 @@ console.log('file input:', fileInput);
 			dropArea.addEventListener('drop', handleDrop, false);
 
 			function handleDrop(e) {
-console.log('File dropped:', e);
 				let dt = e.dataTransfer;
 				let files = dt.files;
 				handleFiles(files);
 			}
 
-function logAllEvents(element) {
-  // Loop through all properties of the HTML object
-  for (const property in element) {
-    // Check if the property is an event handler (e.g., onclick, onmouseover)
-    if (property.startsWith('on')) {
-      const eventName = property.slice(2); // Extract the event name (e.g., 'click')
-
-if (eventName.match(/^(mouse|key)/)) {
-return;
-}
-      
-      element.addEventListener(eventName, (event) => {
-        console.log(`Event Fired: ${eventName}`, event);
-      });
-    }
-  }
-}
-
-logAllEvents(fileInput); // Call the function to log all events for the file input
-
-
 			fileInput.addEventListener('click', function() {
 				this.value = null; // Reset the input so the same file can be selected again
 			});
 			fileInput.addEventListener('change', function(e) {
-console.log('File input changed:', this, e);
 				handleFiles(this.files);
 			});
 
 			function handleFiles(files) {
-console.log('Got files:', files);
 				if(files.length > 0) {
 					selectedFile = files[0];
 					fileMessage.innerHTML = `<span style="color:var(--brand-gold)">${selectedFile.name}</span> ready to sync.`;
@@ -422,8 +397,6 @@ console.log('Got files:', files);
 							if (section.trim() === '') {
 								return;
 							}
-
-console.log(`Parsing section ${index + 1}:`, section);
 
 							try {
 								const fileData = JSON.parse(section);
